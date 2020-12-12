@@ -8,11 +8,11 @@ import sqlite3
 from contextlib import closing
 from os.path import join, exists
 from werkzeug.utils import secure_filename
-from xmind2testcase.zentao import xmind_to_zentao_csv_file
+from xmind2testcase.zentao import xmind_to_zentao_csv_file, xmind_to_zentao_xlsx_file
 from xmind2testcase.testlink import xmind_to_testlink_xml_file
 from xmind2testcase.utils import get_xmind_testsuites, get_xmind_testcase_list
 from flask import Flask, request, send_from_directory, g, render_template, abort, redirect, url_for
-from pandas import read_csv
+
 
 here = os.path.abspath(os.path.dirname(__file__))
 log_file = os.path.join(here, 'running.log')
@@ -251,8 +251,10 @@ def download_zentao_file(filename):
     if not exists(full_path):
         abort(404)
 
-    zentao_csv_file = xmind_to_zentao_csv_file(full_path)
-    filename = os.path.basename(zentao_csv_file) if zentao_csv_file else abort(404)
+    # zentao_csv_file = xmind_to_zentao_csv_file(full_path)
+    # 支持导出xlsx文件类型
+    zentao_xlsx_file = xmind_to_zentao_xlsx_file(full_path)
+    filename = os.path.basename(zentao_xlsx_file) if zentao_xlsx_file else abort(404)
 
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
 

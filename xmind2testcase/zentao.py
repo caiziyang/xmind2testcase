@@ -39,6 +39,20 @@ def xmind_to_zentao_csv_file(xmind_file):
         writer.writerows(zentao_testcase_rows)
         logging.info('Convert XMind file(%s) to a zentao csv file(%s) successfully!', xmind_file, zentao_file)
 
+    # pdata = pd.read_csv(zentao_file)
+    # zentao_xlsx_file = zentao_file[:-4] + '.xlsx'
+    # if os.path.exists(zentao_xlsx_file):
+    #     os.remove(zentao_xlsx_file)
+        # logging.info('The zentao csv file already exists, return it directly: %s', zentao_file)
+        # return zentao_file
+    # pdata.to_excel(zentao_xlsx_file, index=False)
+
+    return zentao_file
+
+
+# 兼容导出为xlsx格式文件，
+def xmind_to_zentao_xlsx_file(xmind_file):
+    zentao_file = xmind_to_zentao_csv_file(xmind_file)
     pdata = pd.read_csv(zentao_file)
     zentao_xlsx_file = zentao_file[:-4] + '.xlsx'
     if os.path.exists(zentao_xlsx_file):
@@ -49,6 +63,8 @@ def xmind_to_zentao_csv_file(xmind_file):
 
     # 兼容导出为xlsx格式文件，
     return zentao_xlsx_file
+
+
 
 
 def gen_a_testcase_row(testcase_dict):
