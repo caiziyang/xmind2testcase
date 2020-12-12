@@ -19,6 +19,7 @@ install_requires = [  # custom
     "flask",
     "arrow",
     "pandas",
+    "openpyxl",
 ]
 
 
