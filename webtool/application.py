@@ -12,6 +12,7 @@ from xmind2testcase.zentao import xmind_to_zentao_csv_file
 from xmind2testcase.testlink import xmind_to_testlink_xml_file
 from xmind2testcase.utils import get_xmind_testsuites, get_xmind_testcase_list
 from flask import Flask, request, send_from_directory, g, render_template, abort, redirect, url_for
+from pandas import read_csv
 
 here = os.path.abspath(os.path.dirname(__file__))
 log_file = os.path.join(here, 'running.log')

@@ -18,6 +18,7 @@ install_requires = [  # custom
     "xmind",
     "flask",
     "arrow",
+    "pandas",
 ]
 
 
