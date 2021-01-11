@@ -61,7 +61,6 @@ def xmind_to_zentao_xlsx_file(xmind_file):
         # return zentao_file
     pdata.to_excel(zentao_xlsx_file, index=False)
 
-    # 兼容导出为xlsx格式文件，
     return zentao_xlsx_file
 
 
@@ -110,7 +109,7 @@ def gen_case_priority(priority):
     if priority in mapping.keys():
         return mapping[priority]
     else:
-        return 1
+        return 3
 
 
 def gen_case_type(case_type):
