@@ -2,7 +2,7 @@
 # _*_ coding:utf-8 _*_
 import logging
 import sys
-from xmind2testcase.zentao import xmind_to_zentao_csv_file
+from xmind2testcase.zentao import xmind_to_zentao_csv_file,xmind_to_zentao_xlsx_file
 from xmind2testcase.testlink import xmind_to_testlink_xml_file
 from xmind2testcase.utils import get_absolute_path, xmind_testcase_to_json_file
 from webtool.application import launch
@@ -16,7 +16,7 @@ using_doc = """
     xml file or a zentao recognized cvs file, then you can import it into testlink or zentao.
     
     Usage:
-     xmind2testcase [path_to_xmind_file] [-csv] [-xml] [-json]
+     xmind2testcase [path_to_xmind_file] [-csv] [-xml] [-json] [-xlsx]
      xmind2testcase [webtool] [port_num]
     
     Example:
@@ -24,6 +24,7 @@ using_doc = """
      xmind2testcase /path/to/testcase.xmind -csv   => output testcase.csv
      xmind2testcase /path/to/testcase.xmind -xml   => output testcase.xml
      xmind2testcase /path/to/testcase.xmind -json  => output testcase.json
+     xmind2testcase /path/to/testcase.xmind -xlsx  => output testcase.xlsx
      xmind2testcase webtool                        => launch the web testcase conversion tool locally: 127.0.0.1:5001
      xmind2testcase webtool 8000                   => launch the web testcase conversion tool locally: 127.0.0.1:8000
     """
@@ -44,17 +45,23 @@ def cli_main():
         elif len(sys.argv) == 3 and sys.argv[2] == '-csv':
             zentao_csv_file = xmind_to_zentao_csv_file(xmind_file)
             logging.info('Convert XMind file to zentao csv file successfully: %s', zentao_csv_file)
+        elif len(sys.argv) == 3 and sys.argv[2] == '-xlsx':
+            zentao_xlsx_file = xmind_to_zentao_xlsx_file(xmind_file)
+            logging.info('Convert XMind file to zentao csv file successfully: %s', zentao_xlsx_file)
         else:
             testlink_json_file = xmind_testcase_to_json_file(xmind_file)
             testlink_xml_file = xmind_to_testlink_xml_file(xmind_file)
             zentao_csv_file = xmind_to_zentao_csv_file(xmind_file)
+            zentao_xlsx_file = xmind_to_zentao_xlsx_file(xmind_file)
             logging.info('Convert XMind file successfully: \n'
                          '1、 testcase json file(%s)\n'
                          '2、 testlink xml file(%s)\n'
-                         '3、 zentao csv file(%s)',
+                         '3、 zentao csv file(%s)\n'
+                         '4、 zentao_xlsx_file\n',
                          testlink_json_file,
                          testlink_xml_file,
-                         zentao_csv_file)
+                         zentao_csv_file,
+                         zentao_xlsx_file)
     elif len(sys.argv) > 1 and sys.argv[1] == 'webtool':
         if len(sys.argv) == 3:
             try:
